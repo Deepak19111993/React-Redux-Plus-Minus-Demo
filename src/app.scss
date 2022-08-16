@@ -1,0 +1,22 @@
+.calculation-wrapper {
+    margin-top: 100px;
+    button{
+        height: 40px;
+        width: 40px;
+        font-size: 18px;
+        border: 1px solid #000;
+        background: #000;
+        color: #fff;
+        outline: none;
+    }
+    input,span{
+        height: 38px;
+        max-width: 80px;
+        border: 1px solid #000;
+        outline: none;
+        margin: 0 20px;
+        padding: 0 10px;
+        text-align: center;
+        color: #000;
+    }
+}

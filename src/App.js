@@ -68,7 +68,7 @@ function App() {
           Memes API
         </span>
         <ul>
-          {loading ? (
+          {loading && meme.length === 0 ? (
             <p>Loading....</p>
           ) : error ? (
             <p>Error</p>

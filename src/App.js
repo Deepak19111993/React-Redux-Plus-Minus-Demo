@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import "./app.scss";
@@ -6,19 +7,33 @@ import {
   getFetchData,
   getMemeData,
   increaseValue,
+  displayNewDataWithClick,
 } from "./redux/actions/generalAction";
 
 function App() {
-  const { count, users, loading, error, meme } = useSelector(
+  const { count, users, loading, error, meme, upperLimit } = useSelector(
     (state) => state.valueReducer
   );
 
   const dispatch = useDispatch();
   // console.log(count);
-  console.log("fetchAction meme", meme);
+  console.log("fetchAction meme", upperLimit);
   // console.log("setAction", setAction);
+
+  // const slice = slice(0, 10);
+
+  // const sliceData = Math.floor(Math.random() * );
+
+  const handleClick = () => {
+    if (meme.length === 0) {
+      dispatch(getMemeData());
+    } else {
+      dispatch(displayNewDataWithClick());
+    }
+  };
+
   return (
-    <div className="App">
+    <div className="App" style={{ padding: "20px 0" }}>
       <div className="calculation-wrapper">
         <button type="button" onClick={() => dispatch(decreaseValue())}>
           -
@@ -53,15 +68,21 @@ function App() {
           Memes API
         </span>
         <ul>
-          {meme.map((item, index) => (
-            <li key={index}>
-              <div>{item.name}</div>
-              <img src={item.url} alt="img" />
-            </li>
-          ))}
+          {loading ? (
+            <p>Loading....</p>
+          ) : error ? (
+            <p>Error</p>
+          ) : (
+            meme.slice(0, upperLimit).map((item, index) => (
+              <li key={index}>
+                <div>{item.name}</div>
+                <img src={item.url} alt="img" />
+              </li>
+            ))
+          )}
         </ul>
       </div>
-      <button type="button" onClick={() => dispatch(getMemeData())}>
+      <button type="button" onClick={() => handleClick()}>
         Call Meme
       </button>
     </div>

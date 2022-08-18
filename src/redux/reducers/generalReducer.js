@@ -7,12 +7,14 @@ import {
   REQUEST_MEME_DATA,
   SUCCESS_MEME_DATA,
   FAIL_MEME_DATA,
+  DISPLAY_NEW_DATA_WITH_CLICK,
 } from "../actionType";
 
 const initialState = {
   count: 1,
   users: [],
   meme: [],
+  upperLimit: 5,
   loading: false,
   error: null,
 };
@@ -62,12 +64,20 @@ const valueReducer = (state = initialState, action) => {
       return {
         ...state,
         meme: action.payload,
+        loading: false,
       };
     case FAIL_MEME_DATA:
       return {
         ...state,
         error: action.payload,
         loading: false,
+      };
+
+    case DISPLAY_NEW_DATA_WITH_CLICK:
+      return {
+        ...state,
+        upperLimit:
+          state.upperLimit === 100 ? state.upperLimit : state.upperLimit + 5,
       };
 
     default:
